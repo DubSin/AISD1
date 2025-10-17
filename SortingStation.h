@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "Stack.h"
+#include <cmath>
 
 class SortingStation{
     private:
@@ -21,6 +22,20 @@ class SortingStation{
 
         bool isRightAssociative(char op) const {
             return op == '^';
+        }
+
+        bool isFunction(const std::string& str, size_t pos) const {
+            if (pos + 2 >= str.length()) return false;
+            std::string substr = str.substr(pos, 3);
+            return substr == "sin" || substr == "cos";
+        }
+
+        char getFunctionType(const std::string& str, size_t pos) const {
+            if (pos + 2 >= str.length()) return 0;
+            std::string substr = str.substr(pos, 3);
+            if (substr == "sin") return 's';
+            if (substr == "cos") return 'c';
+            return 0;
         }
 
         double applyOperator(char op, double a, double b) const {
@@ -52,6 +67,11 @@ class SortingStation{
                         postfix += ' ';
                     }
                 }
+                else if (isFunction(infix, i)) {
+                    char funcType = getFunctionType(infix, i);
+                    operators.push(funcType);
+                    i += 2; 
+                }
                 else if (c == '(') {
                     operators.push(c);
                 }
@@ -66,6 +86,11 @@ class SortingStation{
                     }
                     else {
                         throw std::runtime_error("Mismatched parentheses");
+                    }
+                    if (!operators.empty() && (operators.top() == 's' || operators.top() == 'c')) {
+                        postfix += operators.top();
+                        postfix += ' ';
+                        operators.pop();
                     }
                 }
                 else if (isOperator(c)) {
@@ -125,6 +150,16 @@ class SortingStation{
                     if (values.empty()) throw std::runtime_error("Invalid expression");
                     double a = values.top(); values.pop();
                     values.push(-a);
+                }
+                else if (c == 's') { // sin
+                    if (values.empty()) throw std::runtime_error("Invalid expression");
+                    double a = values.top(); values.pop();
+                    values.push(sin(a));
+                }
+                else if (c == 'c') { // cos
+                    if (values.empty()) throw std::runtime_error("Invalid expression");
+                    double a = values.top(); values.pop();
+                    values.push(cos(a));
                 }
             }
 
