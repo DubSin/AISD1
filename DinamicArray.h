@@ -200,15 +200,6 @@ public:
         }
     }
 
-    T& find(const T& value) const {
-        for (size_t i = 0; i < length; i++) {
-            if (data[i] == value) {
-                return i;
-            }
-        }
-        return -1; 
-    }
-
     void print() const {
         std::cout << "Array (size: " << length << ", capacity: " << capacity << "): ";
         for (size_t i = 0; i < length; i++) {
@@ -230,3 +221,4 @@ public:
 
 
 #endif
+
