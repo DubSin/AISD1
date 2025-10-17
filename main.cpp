@@ -311,7 +311,7 @@ void DinamicArrayMenu() {
 }
 
 void SortingStationMenu() {
-    cout << "\n=== Testing Shunting Yard Algorithm ===" << endl;
+    cout << "\n=== Sorting Station Algorithm ===" << endl;
     SortingStation calculator;
 
     string expression;
@@ -392,3 +392,4 @@ int main() {
     return 0;
 
 };
+
