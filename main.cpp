@@ -205,7 +205,7 @@ void StackMenu() {
 
 void DinamicArrayMenu() {
     cout << "\n=== Linked List ===" << endl;
-    DynamicArray list;
+    DynamicArray<int> list;
 
     int choice, index;
     int value;
@@ -390,4 +390,5 @@ int main() {
     cin.get();
 
     return 0;
+
 };
